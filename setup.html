@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsubinator setup guide</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; color: #14202e; background: #f7f9fb; }
+    h1 { font-size: 1.7rem; margin-bottom: 4px; }
+    h2 { font-size: 1.2rem; margin-top: 2rem; }
+    a { color: #0b6bcb; }
+    li { margin-bottom: 0.6rem; }
+    code { background: #e9f1f9; padding: 1px 6px; border-radius: 6px; word-break: break-all; }
+    .box { background: #e9f1f9; border-radius: 12px; padding: 12px 16px; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #dde5ee; text-align: center; color: #5b6b7c; font-size: 0.9rem; }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e6edf3; background: #0f1720; }
+      a { color: #6cb2ff; }
+      code, .box { background: #172433; }
+      footer { color: #9fb0c1; border-top-color: #243447; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Unsubinator setup guide</h1>
+  <p><a href="index.html">← Back to Unsubinator</a></p>
+
+  <div class="box">
+    <p>You'll create a free Google Cloud project so that Unsubinator can read your Gmail headers with your own permission. It costs nothing and doesn't need a billing account. Allow about ten minutes.</p>
+    <p>Your item ID for step 6 is: <code>mokkckihdecngaghbheeecogajbpaahc</code></p>
+  </div>
+
+  <h2>1. Download and unzip</h2>
+  <ol>
+    <li>Download <a href="unsubinator-selfinstall-v0.2.8.zip">unsubinator-selfinstall-v0.2.8.zip</a> and unzip it. You'll get a folder called <code>unsubinator</code>. Keep it somewhere permanent, because Chrome loads the extension from it.</li>
+  </ol>
+
+  <h2>2. Create your Google Cloud project</h2>
+  <ol start="2">
+    <li>Go to <a href="https://console.cloud.google.com/projectcreate">console.cloud.google.com/projectcreate</a>, sign in, name it anything (for example "Unsubinator") and click <strong>Create</strong>. Ignore any free trial offers.</li>
+    <li>With the new project selected, open <a href="https://console.cloud.google.com/apis/library/gmail.googleapis.com">the Gmail API page</a> and click <strong>Enable</strong>.</li>
+  </ol>
+
+  <h2>3. Set up the consent screen</h2>
+  <ol start="4">
+    <li>Open <a href="https://console.cloud.google.com/auth/overview">Google Auth Platform</a> and click <strong>Get started</strong>. Enter an app name (for example "Unsubinator"), choose your email as the support email, set the audience to <strong>External</strong>, add your email as the contact, tick the agreement and click <strong>Create</strong>.</li>
+    <li>Go to <strong>Data access</strong>, click <strong>Add or remove scopes</strong>, tick (or paste) <code>https://www.googleapis.com/auth/gmail.readonly</code>, then <strong>Update</strong> and <strong>Save</strong>.</li>
+    <li>Go to <strong>Audience</strong>, find <strong>Test users</strong>, click <strong>Add users</strong> and add your own Gmail address. Only addresses listed here can sign in.</li>
+  </ol>
+
+  <h2>4. Create the OAuth client</h2>
+  <ol start="7">
+    <li>Go to <strong>Clients</strong> and click <strong>Create client</strong>. Choose application type <strong>Chrome extension</strong>, give it any name, and paste <code>mokkckihdecngaghbheeecogajbpaahc</code> into <strong>Item ID</strong>. Click <strong>Create</strong>.</li>
+    <li>Copy the <strong>Client ID</strong> it shows. It ends in <code>.apps.googleusercontent.com</code>.</li>
+  </ol>
+
+  <h2>5. Add your client ID and load the extension</h2>
+  <ol start="9">
+    <li>Open the <code>manifest.json</code> file in the unzipped folder with any text editor. Replace <code>YOUR_CLIENT_ID.apps.googleusercontent.com</code> with your client ID, keep the quotation marks, and save.</li>
+    <li>In Chrome, go to <code>chrome://extensions</code>, switch on <strong>Developer mode</strong> (top right), click <strong>Load unpacked</strong> and choose the <code>unsubinator</code> folder.</li>
+    <li>Check that the extension ID shown on its card is <code>mokkckihdecngaghbheeecogajbpaahc</code>. If it isn't, sign-in will fail with "bad client id".</li>
+  </ol>
+
+  <h2>6. Use it</h2>
+  <ol start="12">
+    <li>Click the Unsubinator icon (use the puzzle-piece menu to pin it) and start a scan. Google will say it hasn't verified the app. That's expected, because it's your own project. Click <strong>Advanced</strong>, then <strong>Go to Unsubinator (unsafe)</strong>, and allow read-only access.</li>
+  </ol>
+
+  <h2>Good to know</h2>
+  <ul>
+    <li>Changes to a client can take a few minutes, sometimes longer, to start working. If you see "bad client id" and the extension ID is right, wait a little and reload the extension.</li>
+    <li>While your project is in Testing mode, Google signs you out about every 7 days. Just scan again and approve.</li>
+    <li>Chrome may warn about developer-mode extensions each time it starts, and it won't update the extension automatically. Check this page for new versions.</li>
+    <li>To remove access at any time, click <strong>Disconnect</strong> in the extension or visit <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+  </ul>
+
+  <p>Stuck? Email <a href="mailto:hello@lbysoftware.co.uk">hello@lbysoftware.co.uk</a>. See also the <a href="privacy-policy.html">privacy policy</a>.</p>
+
+  <footer>Made with 💙 in Scotland · © 2026 Look Behind You Software</footer>
+</body>
+</html>
